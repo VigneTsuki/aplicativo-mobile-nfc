@@ -4,14 +4,15 @@ import android.nfc.cardemulation.HostApduService;
 import android.os.Bundle;
 import android.util.Log;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 public class MyHostApduService extends HostApduService {
     public MyHostApduService() {
     }
 
     private static final String TAG = "MyHostApduService";
-    private static final String SAMPLE_URL = "112608";
+    // Máximo de 26 bytes
+    private static final String MENSAGEM = "00000000001111111111111111";
 
     @Override
     public byte[] processCommandApdu(byte[] commandApdu, Bundle extras) {
@@ -21,15 +22,14 @@ public class MyHostApduService extends HostApduService {
                     commandApdu[2] == (byte) 0x04 && commandApdu[3] == (byte) 0x00) {
 
                 // Prepare and send NDEF response with the URL
-                byte[] ndefResponse = buildNdefResponse();
-                return ndefResponse;
+                return buildNdefResponse();
             }
         }
         return new byte[]{};
     }
 
     private byte[] buildNdefResponse() {
-        byte[] ndefMessage = createNdefMessage(SAMPLE_URL);
+        byte[] ndefMessage = createNdefMessage(MENSAGEM);
         byte[] ndefResponse = new byte[ndefMessage.length + 2];
         System.arraycopy(ndefMessage, 0, ndefResponse, 0, ndefMessage.length);
         ndefResponse[ndefMessage.length] = (byte) 0x90; // SW1
@@ -38,8 +38,8 @@ public class MyHostApduService extends HostApduService {
     }
 
     private byte[] createNdefMessage(String text) {
-        byte[] textBytes = text.getBytes(Charset.forName("UTF-8"));
-        int ndefMessageLength = textBytes.length + 7; // Total length of ndefMessage
+        byte[] textBytes = text.getBytes(StandardCharsets.UTF_8);
+        int ndefMessageLength = textBytes.length + 3; // Total length of ndefMessage
         if (ndefMessageLength > 255) {
             // NDEF message too long (max length is 255 bytes)
             // Handle this case if needed
@@ -49,12 +49,8 @@ public class MyHostApduService extends HostApduService {
         byte[] ndefMessage = new byte[ndefMessageLength];
         ndefMessage[0] = (byte) 0xD1; // NDEF Header
         ndefMessage[1] = (byte) 0x01; // Type Length
-        ndefMessage[2] = (byte) (textBytes.length + 3); // Payload Length
-        ndefMessage[3] = (byte) 0x54; // Record Type: Text (T)
-        ndefMessage[4] = (byte) 0x02; // Language Code Length (en)
-        ndefMessage[5] = (byte) 'e'; // Language Code: 'e' (en)
-        ndefMessage[6] = (byte) 'n'; // Language Code: 'n' (en)
-        System.arraycopy(textBytes, 0, ndefMessage, 7, textBytes.length);
+        ndefMessage[2] = (byte) (textBytes.length); // Payload Length
+        System.arraycopy(textBytes, 0, ndefMessage, 3, textBytes.length);
         return ndefMessage;
     }
 
