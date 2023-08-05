@@ -34,7 +34,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button btnLogin = findViewById(R.id.btnLogin);
+        Button btnCadastro = findViewById(R.id.btnCadastro);
         btnLogin.setOnClickListener(v -> Login());
+        btnCadastro.setOnClickListener(v -> Cadastro());
     }
 
     public void Login(){
@@ -94,6 +96,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void Cadastro(){
+        Intent intent = new Intent(MainActivity.this, CadastroActivity.class);
+        startActivity(intent);
     }
 
     public void FuncaoTesteGet() {
