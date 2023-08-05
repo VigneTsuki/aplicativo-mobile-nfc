@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         LoginRequest loginRequest = new LoginRequest(login, senha);
 
         OkHttpClient client = new OkHttpClient();
-        String url = "http://" + Url + "/usuario";
+        String url = "http://" + Url + "/login";
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
         String requestBody = new Gson().toJson(loginRequest);
         RequestBody body = RequestBody.create(mediaType, requestBody);
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = new Intent(MainActivity.this, SegundaTelaActivity.class);
                             startActivity(intent);
                         } else {
-                            Toast.makeText(MainActivity.this, "Login ou senha incorretos.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, loginResponse.getMensagem(), Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
