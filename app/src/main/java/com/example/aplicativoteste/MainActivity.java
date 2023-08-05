@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.aplicativoteste.models.LoginRequest;
+import com.example.aplicativoteste.models.LoginResponse;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 
@@ -23,7 +26,6 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnLogin;
     static final String Url = "18.206.155.29";
 
     @Override
@@ -31,25 +33,36 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnLogin = findViewById(R.id.btnLogin);
-
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Login();
-            }
-        });
+        Button btnLogin = findViewById(R.id.btnLogin);
+        btnLogin.setOnClickListener(v -> Login());
     }
 
     public void Login(){
 
         String login = ((EditText) findViewById(R.id.editTextLogin)).getText().toString();
+
+        if(login.equals("")){
+            Toast.makeText(MainActivity.this,
+                    "Preencha o campo Login",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         String senha = ((EditText) findViewById(R.id.editTextSenha)).getText().toString();
+
+        if(senha.equals("")){
+            Toast.makeText(MainActivity.this,
+                    "Preencha o campo Senha",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        LoginRequest loginRequest = new LoginRequest(login, senha);
 
         OkHttpClient client = new OkHttpClient();
         String url = "http://" + Url + "/usuario";
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
-        String requestBody = "{\"login\":\"" +login+ "\", \"senha\":\""+senha+"\"}";
+        String requestBody = new Gson().toJson(loginRequest);
         RequestBody body = RequestBody.create(mediaType, requestBody);
 
         Request request = new Request.Builder()
@@ -60,22 +73,22 @@ public class MainActivity extends AppCompatActivity {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                e.printStackTrace();
+                Toast.makeText(MainActivity.this,
+                        "Ocorreu um erro no login, por favor tente novamente mais tarde",
+                        Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                if (response.isSuccessful()) {
+                if (response.isSuccessful() && response.body() != null) {
                     String responseBody = response.body().string();
-                    MainActivity.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if(responseBody.contains("true")){
-                                Intent intent = new Intent(MainActivity.this, SegundaTelaActivity.class);
-                                startActivity(intent);
-                            } else {
-                                Toast.makeText(MainActivity.this, "Login ou senha incorretos.", Toast.LENGTH_SHORT).show();
-                            }
+                    LoginResponse loginResponse = new Gson().fromJson(responseBody, LoginResponse.class);
+                    MainActivity.this.runOnUiThread(() -> {
+                        if(loginResponse.getSucesso()){
+                            Intent intent = new Intent(MainActivity.this, SegundaTelaActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(MainActivity.this, "Login ou senha incorretos.", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
