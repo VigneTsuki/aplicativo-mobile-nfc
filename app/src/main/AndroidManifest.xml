@@ -47,7 +47,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SegundaTelaActivity"
+            android:name=".MenuActivity"
             android:label="Segunda Tela" />
     </application>
 

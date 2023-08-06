@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     LoginResponse loginResponse = new Gson().fromJson(responseBody, LoginResponse.class);
                     MainActivity.this.runOnUiThread(() -> {
                         if(loginResponse.getSucesso()){
-                            Intent intent = new Intent(MainActivity.this, SegundaTelaActivity.class);
+                            Intent intent = new Intent(MainActivity.this, MenuActivity.class);
                             startActivity(intent);
                         } else {
                             Toast.makeText(MainActivity.this, loginResponse.getMensagem(), Toast.LENGTH_SHORT).show();
