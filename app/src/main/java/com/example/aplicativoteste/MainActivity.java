@@ -3,11 +3,12 @@ package com.example.aplicativoteste;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.aplicativoteste.models.LoginRequest;
@@ -87,6 +88,12 @@ public class MainActivity extends AppCompatActivity {
                     LoginResponse loginResponse = new Gson().fromJson(responseBody, LoginResponse.class);
                     MainActivity.this.runOnUiThread(() -> {
                         if(loginResponse.getSucesso()){
+
+                            SharedPreferences sharedPreferences = getSharedPreferences("PresencaEscolar", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("CodigoAluno", login.trim());
+                            editor.apply();
+
                             Intent intent = new Intent(MainActivity.this, MenuActivity.class);
                             startActivity(intent);
                         } else {
@@ -101,38 +108,5 @@ public class MainActivity extends AppCompatActivity {
     public void Cadastro(){
         Intent intent = new Intent(MainActivity.this, CadastroActivity.class);
         startActivity(intent);
-    }
-
-    public void FuncaoTesteGet() {
-        TextView mTextViewResult = ((EditText) findViewById(R.id.editTextLogin));
-
-        OkHttpClient client = new OkHttpClient();
-
-        String url = "http://" + Url + "/weatherforecast";
-
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    final String myResponse = response.body().string();
-
-                    MainActivity.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mTextViewResult.setText(myResponse);
-                        }
-                    });
-                }
-            }
-        });
     }
 }
