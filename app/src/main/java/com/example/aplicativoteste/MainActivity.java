@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
                             editor.apply();
 
                             Intent intent = new Intent(MainActivity.this, MenuActivity.class);
+                            intent.putExtra("codigoAluno", login.trim());
                             startActivity(intent);
                         } else {
                             Toast.makeText(MainActivity.this, loginResponse.getMensagem(), Toast.LENGTH_SHORT).show();

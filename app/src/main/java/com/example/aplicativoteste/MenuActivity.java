@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.aplicativoteste.models.LoginResponse;
 import com.example.aplicativoteste.models.UsuarioResponse;
 import com.google.gson.Gson;
 
@@ -28,17 +27,15 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        // Exibir a mensagem "Olá Mundo!" na segunda tela
         BuscarCadastro();
+        TextView textViewMensagemNfc = findViewById(R.id.textViewMensagemNfc);
 
         PackageManager pm = getPackageManager();
         boolean hceSupported = pm.hasSystemFeature(PackageManager.FEATURE_NFC_HOST_CARD_EMULATION);
         if (hceSupported) {
-            // O dispositivo suporta HCE
-            Toast.makeText(this, "HCE é suportado no dispositivo.", Toast.LENGTH_SHORT).show();
+            textViewMensagemNfc.setText("Host Card Emulation (HCE) é suportado pelo dispositivo");
         } else {
-            // O dispositivo não suporta HCE
-            Toast.makeText(this, "HCE não é suportado no dispositivo.", Toast.LENGTH_SHORT).show();
+            textViewMensagemNfc.setText("Host Card Emulation (HCE) não é suportado pelo dispositivo");
         }
     }
 
@@ -50,7 +47,9 @@ public class MenuActivity extends AppCompatActivity {
 
         OkHttpClient client = new OkHttpClient();
 
-        String url = "http://" + Url + "/usuario?codigo=" + "2";
+        String codigoDoAluno = getIntent().getStringExtra("codigoAluno");
+
+        String url = "http://" + Url + "/usuario?codigo=" + codigoDoAluno;
 
         Request request = new Request.Builder()
                 .url(url)
