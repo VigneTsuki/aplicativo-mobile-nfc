@@ -3,31 +3,59 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@android:color/white">
 
     <TextView
         android:id="@+id/textViewCodigo"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="Código:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"/>
 
     <TextView
         android:id="@+id/textViewNome"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="Nome do Usuário"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="8dp"/>
 
     <TextView
         android:id="@+id/textViewEmail"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="E-mail: exemplo@email.com"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="8dp"/>
 
     <TextView
         android:id="@+id/textViewTelefone"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="Telefone: (123) 456-7890"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="8dp"/>
 
     <TextView
         android:id="@+id/textViewMensagemNfc"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="Mensagem NFC"
+        android:layout_marginTop="100dp"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>

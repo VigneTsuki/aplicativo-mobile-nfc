@@ -4,11 +4,20 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
+    <ImageView
+        android:id="@+id/imageViewLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/unesc_logo" />
+
     <EditText
         android:id="@+id/editTextLogin"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:hint="Login"
+        android:layout_marginTop="280dp"
         android:inputType="text" />
 
     <EditText
@@ -24,6 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/editTextSenha"
+        android:backgroundTint="#32CD32"
         android:text="Login" />
 
     <Button
@@ -31,5 +41,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/btnLogin"
+        android:backgroundTint="#32CD32"
         android:text="Cadastrar" />
 </RelativeLayout>

@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:hint="Codigo"
+        android:layout_marginTop="120dp"
         android:inputType="text" />
 
     <EditText
@@ -52,16 +53,20 @@
         android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/btnVoltar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextReSenha"
-        android:text="Voltar" />
-
-    <Button
         android:id="@+id/btnCadastro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btnVoltar"
+        android:layout_below="@id/editTextReSenha"
+        android:backgroundTint="#32CD32"
+        android:layout_marginTop="40dp"
         android:text="Cadastrar" />
+
+    <Button
+        android:id="@+id/btnVoltar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnCadastro"
+        android:backgroundTint="#32CD32"
+        android:text="Voltar" />
+
 </RelativeLayout>
