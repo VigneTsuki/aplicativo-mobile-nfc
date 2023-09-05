@@ -97,7 +97,7 @@ public class CadastroActivity extends AppCompatActivity {
                 nome, senha, reSenha);
 
         OkHttpClient client = new OkHttpClient();
-        String url = "http://" + Url + "/usuario";
+        String url = "http://" + Url + "/aluno";
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
         String requestBody = new Gson().toJson(cadastroRequest);
         RequestBody body = RequestBody.create(mediaType, requestBody);

@@ -49,7 +49,7 @@ public class MenuActivity extends AppCompatActivity {
 
         String codigoDoAluno = getIntent().getStringExtra("codigoAluno");
 
-        String url = "http://" + Url + "/usuario?codigo=" + codigoDoAluno;
+        String url = "http://" + Url + "/aluno?codigo=" + codigoDoAluno;
 
         Request request = new Request.Builder()
                 .url(url)
