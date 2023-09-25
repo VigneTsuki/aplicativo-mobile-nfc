@@ -33,9 +33,10 @@ public class MenuActivity extends AppCompatActivity {
         PackageManager pm = getPackageManager();
         boolean hceSupported = pm.hasSystemFeature(PackageManager.FEATURE_NFC_HOST_CARD_EMULATION);
         if (hceSupported) {
-            textViewMensagemNfc.setText("Host Card Emulation (HCE) é suportado pelo dispositivo");
+            textViewMensagemNfc.setText("O seu dispositivo está pronto para registrar presença!");
         } else {
-            textViewMensagemNfc.setText("Host Card Emulation (HCE) não é suportado pelo dispositivo");
+            textViewMensagemNfc.setText("O seu dispositivo não possui NFC, " +
+                    "então não poderá registrar presença automaticamente, por favor comunique seu professor.");
         }
     }
 
