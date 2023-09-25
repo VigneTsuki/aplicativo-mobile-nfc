@@ -25,7 +25,7 @@ import okhttp3.Response;
 
 public class CadastroActivity extends AppCompatActivity {
 
-    static final String Url = "18.206.155.29";
+    static final String Url = "44.202.42.205:3000";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +127,10 @@ public class CadastroActivity extends AppCompatActivity {
                         } else {
                             Toast.makeText(CadastroActivity.this, cadastroResponse.getMensagem(), Toast.LENGTH_SHORT).show();
                         }
+                    });
+                } else{
+                    CadastroActivity.this.runOnUiThread(() -> {
+                        Toast.makeText(CadastroActivity.this, "Erro no cadastro.", Toast.LENGTH_LONG).show();
                     });
                 }
             }

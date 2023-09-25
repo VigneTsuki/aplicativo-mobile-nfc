@@ -27,7 +27,7 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    static final String Url = "18.206.155.29";
+    static final String Url = "44.202.42.205:3000";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 Toast.makeText(MainActivity.this,
                         "Ocorreu um erro no login, por favor tente novamente mais tarde",
-                        Toast.LENGTH_SHORT).show();
+                        Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -100,6 +100,10 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             Toast.makeText(MainActivity.this, loginResponse.getMensagem(), Toast.LENGTH_SHORT).show();
                         }
+                    });
+                } else {
+                    MainActivity.this.runOnUiThread(() -> {
+                        Toast.makeText(MainActivity.this, "Dados de acesso incorretos.", Toast.LENGTH_LONG).show();
                     });
                 }
             }

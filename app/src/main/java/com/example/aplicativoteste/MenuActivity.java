@@ -21,7 +21,7 @@ import okhttp3.Response;
 
 public class MenuActivity extends AppCompatActivity {
 
-    static final String Url = "3.94.88.240";
+    static final String Url = "44.202.42.205:3000";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +81,10 @@ public class MenuActivity extends AppCompatActivity {
                                 Toast.makeText(MenuActivity.this, usuarioResponse.getMensagem(), Toast.LENGTH_SHORT).show();
                             }
                         }
+                    });
+                } else{
+                    MenuActivity.this.runOnUiThread(() -> {
+                        Toast.makeText(MenuActivity.this, "Tente novamente mais tarde.", Toast.LENGTH_LONG).show();
                     });
                 }
             }
