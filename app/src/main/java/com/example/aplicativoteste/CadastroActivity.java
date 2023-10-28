@@ -25,7 +25,7 @@ import okhttp3.Response;
 
 public class CadastroActivity extends AppCompatActivity {
 
-    static final String Url = "44.202.42.205:3000";
+    static final String Url = "3.81.199.254:3000";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
