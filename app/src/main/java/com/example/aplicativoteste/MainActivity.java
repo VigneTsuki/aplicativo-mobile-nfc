@@ -27,7 +27,7 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    static final String Url = "3.81.199.254:3000";
+    static final String Url = "vigne.moe:3000";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,9 +76,9 @@ public class MainActivity extends AppCompatActivity {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                Toast.makeText(MainActivity.this,
-                        "Ocorreu um erro no login, por favor tente novamente mais tarde",
-                        Toast.LENGTH_LONG).show();
+                MainActivity.this.runOnUiThread(() -> {
+                    Toast.makeText(MainActivity.this, "Ocorreu um erro de comunicação, por favor tente novamente mais tarde", Toast.LENGTH_LONG).show();
+                });
             }
 
             @Override

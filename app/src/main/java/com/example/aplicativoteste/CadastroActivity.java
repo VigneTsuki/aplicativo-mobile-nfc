@@ -25,7 +25,7 @@ import okhttp3.Response;
 
 public class CadastroActivity extends AppCompatActivity {
 
-    static final String Url = "3.81.199.254:3000";
+    static final String Url = "vigne.moe:3000";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,9 +110,9 @@ public class CadastroActivity extends AppCompatActivity {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                Toast.makeText(CadastroActivity.this,
-                        "Ocorreu um erro no cadastro, por favor tente novamente mais tarde",
-                        Toast.LENGTH_SHORT).show();
+                CadastroActivity.this.runOnUiThread(() -> {
+                    Toast.makeText(CadastroActivity.this, "Ocorreu um erro de comunicação, por favor tente novamente mais tarde", Toast.LENGTH_LONG).show();
+                });
             }
 
             @Override

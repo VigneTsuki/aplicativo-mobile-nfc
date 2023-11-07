@@ -44,17 +44,15 @@ public class MyHostApduService extends HostApduService {
 
     private byte[] createNdefMessage(String text) {
         byte[] textBytes = text.getBytes(StandardCharsets.UTF_8);
-        int ndefMessageLength = textBytes.length + 3; // Total length of ndefMessage
+        int ndefMessageLength = textBytes.length + 3;
         if (ndefMessageLength > 255) {
-            // NDEF message too long (max length is 255 bytes)
-            // Handle this case if needed
             return null;
         }
 
         byte[] ndefMessage = new byte[ndefMessageLength];
-        ndefMessage[0] = (byte) 0xD1; // NDEF Header
-        ndefMessage[1] = (byte) 0x01; // Type Length
-        ndefMessage[2] = (byte) (textBytes.length); // Payload Length
+        ndefMessage[0] = (byte) 0xD1;
+        ndefMessage[1] = (byte) 0x01;
+        ndefMessage[2] = (byte) (textBytes.length);
         System.arraycopy(textBytes, 0, ndefMessage, 3, textBytes.length);
         return ndefMessage;
     }
